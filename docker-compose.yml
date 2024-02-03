@@ -1,0 +1,27 @@
+version: "3"
+services:
+  app:
+    container_name: balloon-shop
+    image: springboot
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5433/balloon-shop
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: p1234
+        SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  db:
+    image: postgres
+    environment:
+       POSTGRES_USER: postgres
+       POSTGRES_PASSWORD: p1234
+       POSTGRES_DB: balloon-shop
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+
+    command: -p 5433
